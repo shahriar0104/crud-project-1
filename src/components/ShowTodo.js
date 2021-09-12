@@ -1,35 +1,22 @@
 import React, {useState} from "react";
 import TodoFormFields from "./TodoFormFields";
+import CommonState from "./CommonState";
 
 const ShowTodo = (props) => {
     const [openModal, setOpenModal] = useState(false);
-    const [name, setName] = useState(props.name);
-    const [email, setEmail] = useState(props.email);
-    const [todo, setTodo] = useState(props.todo);
-
-    const nameChangeHandler = (event) => {
-        setName(event.target.value);
-    }
-
-    const emailChangeHandler = (event) => {
-        setEmail(event.target.value);
-    }
-
-    const todoChangeHandler = (event) => {
-        setTodo(event.target.value);
-    }
+    const commonState = CommonState({name: props.name, email: props.email, todo: props.todo});
 
     const onTrigger = (event) => {
-        props.update({name, email, todo}, props.index);
+        props.update({name: commonState.name, email: commonState.email, todo: commonState.todo}, props.index);
         setOpenModal(false);
         event.preventDefault();
     }
 
     const clearFormValues = () => {
         setOpenModal(false);
-        setName(props.name);
-        setEmail(props.email);
-        setTodo(props.todo);
+        commonState.setName(props.name);
+        commonState.setEmail(props.email);
+        commonState.setTodo(props.todo);
     }
 
     return (
@@ -63,8 +50,8 @@ const ShowTodo = (props) => {
                         <div
                             className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
 
-                            <TodoFormFields title='Edit Todo' name={name} email={email} todo={todo}
-                                            nameChange={nameChangeHandler} emailChange={emailChangeHandler} todoChange={todoChangeHandler}
+                            <TodoFormFields title='Edit Todo' name={commonState.name} email={commonState.email} todo={commonState.todo}
+                                            nameChange={commonState.nameChangeHandler} emailChange={commonState.emailChangeHandler} todoChange={commonState.todoChangeHandler}
                                             trigger={onTrigger} clearForm={clearFormValues} isCancelPresent={true}/>
 
                         </div>
