@@ -1,8 +1,8 @@
-const TodoFormFields = (props) => {
+const TodoFormFields = ({title, name, email, todo, change, trigger, clearForm, isCancelPresent}) => {
     return (
         <div>
-            <form className="bg-white shadow-lg rounded pt-6" onSubmit={props.trigger}>
-                <p className="text-blue-500 text-2xl font-medium text-center">{props.title}</p>
+            <form className="bg-white shadow-lg rounded pt-6" onSubmit={trigger}>
+                <p className="text-blue-500 text-2xl font-medium text-center">{title}</p>
                 <div className="md:flex md:items-center mt-8 mb-4 px-2 sm:px-4">
                     <div className="md:w-1/4">
                         <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
@@ -14,8 +14,8 @@ const TodoFormFields = (props) => {
                         <input required
                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
                                             leading-tight focus:outline-none focus:shadow-outline"
-                               id="name" type="text" name="name" value={props.name} placeholder="Name"
-                               onChange={props.nameChange}/>
+                               id="name" type="text" name="name" value={name} placeholder="Name"
+                               onChange={change}/>
                     </div>
                 </div>
 
@@ -30,9 +30,9 @@ const TodoFormFields = (props) => {
                         <input required
                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
                                             leading-tight focus:outline-none focus:shadow-outline"
-                               id="email" type="email" name="email" value={props.email}
+                               id="email" type="email" name="email" value={email}
                                placeholder="Email"
-                               onChange={props.emailChange}/>
+                               onChange={change}/>
                     </div>
                 </div>
 
@@ -47,9 +47,9 @@ const TodoFormFields = (props) => {
                                     <textarea required
                                               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
                                         leading-tight focus:outline-none focus:shadow-outline"
-                                              id="todo" cols="5" rows="3" name="todo" value={props.todo}
+                                              id="todo" cols="5" rows="3" name="todo" value={todo}
                                               placeholder="Todo"
-                                              onChange={props.todoChange}/>
+                                              onChange={change}/>
                     </div>
                 </div>
 
@@ -62,13 +62,13 @@ const TodoFormFields = (props) => {
                            value="Submit">
                     </input>
                     {
-                        props.isCancelPresent ?
+                        isCancelPresent ?
                             (<button type="button"
                                      className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300
                                     shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50
                                     focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0
                                     sm:ml-3 sm:w-auto sm:text-sm"
-                                     onClick={props.clearForm}>
+                                     onClick={clearForm}>
                                 Cancel
                             </button>) : null
                     }

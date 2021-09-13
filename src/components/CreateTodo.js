@@ -2,23 +2,21 @@ import React from "react";
 import TodoFormFields from "./TodoFormFields";
 import CommonState from "./CommonState";
 
-const CreateTodo = (props) => {
-    const commonState = CommonState({name: '', email: '', todo: ''});
+const CreateTodo = ({addTodo}) => {
+    const emptyTodoState = {name: '', email: '', todo: ''}
+    const {todoState, setTodoState, changeHandler} = CommonState(emptyTodoState);
 
     const onTrigger = (event) => {
-        props.addTodo(event.target);
+        addTodo(event);
         event.preventDefault();
-        commonState.setName('');
-        commonState.setEmail('');
-        commonState.setTodo('');
+        setTodoState(emptyTodoState);
     }
 
     return (
         <div className="w-full sm:w-8/12 md:w-6/12 m-auto">
 
-            <TodoFormFields title='Add a Todo' name={commonState.name} email={commonState.email} todo={commonState.todo}
-                            nameChange={commonState.nameChangeHandler} emailChange={commonState.emailChangeHandler} todoChange={commonState.todoChangeHandler}
-                            trigger={onTrigger} isCancelPresent={false}/>
+            <TodoFormFields title='Add a Todo' name={todoState.name} email={todoState.email} todo={todoState.todo}
+                            change={changeHandler} trigger={onTrigger} isCancelPresent={false}/>
 
         </div>
     )
