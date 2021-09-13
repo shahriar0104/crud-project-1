@@ -7,7 +7,7 @@ const ShowTodo = ({index, name, email, todo, update, click}) => {
     const {todoState, setTodoState, changeHandler} = CommonState({name, email, todo});
 
     const onTrigger = (event) => {
-        update(todoState, index);
+        update(event, index);
         setOpenModal(false);
         event.preventDefault();
     }

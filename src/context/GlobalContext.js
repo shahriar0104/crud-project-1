@@ -1,11 +1,16 @@
-import React, {createContext, useState} from "react";
+import React, {createContext, useReducer} from "react";
+import todoReducer from "../reducer/todoReducer";
 
-export const TodoListContext = createContext([]);
+const initialState = {
+    todos: [],
+};
+
+export const TodoListContext = createContext(initialState);
 
 function GlobalContext(props) {
-    const [todoList, setTodoList] = useState([]);
+    const [state, dispatch] = useReducer(todoReducer, initialState);
     return (
-        <TodoListContext.Provider value={[todoList, setTodoList]}>
+        <TodoListContext.Provider value={[state, dispatch]}>
             {props.children}
         </TodoListContext.Provider>
     )
