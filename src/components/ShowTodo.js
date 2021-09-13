@@ -2,39 +2,37 @@ import React, {useState} from "react";
 import TodoFormFields from "./TodoFormFields";
 import CommonState from "./CommonState";
 
-const ShowTodo = (props) => {
+const ShowTodo = ({index, name, email, todo, click, update}) => {
     const [openModal, setOpenModal] = useState(false);
-    const commonState = CommonState({name: props.name, email: props.email, todo: props.todo});
+    const {todoState, setTodoState, changeHandler} = CommonState({name, email, todo})
 
     const onTrigger = (event) => {
-        props.update({name: commonState.name, email: commonState.email, todo: commonState.todo}, props.index);
+        update({name: todoState.name, email: todoState.email, todo: todoState.todo}, index);
         setOpenModal(false);
         event.preventDefault();
     }
 
     const clearFormValues = () => {
         setOpenModal(false);
-        commonState.setName(props.name);
-        commonState.setEmail(props.email);
-        commonState.setTodo(props.todo);
+        setTodoState({name, email, todo})
     }
 
     return (
         <div>
             <div className="bg-gray-50 max-w-sm rounded overflow-hidden shadow-lg m-4">
                 <div className="p-4">
-                    <div className="font-bold text-xl">{props.name}</div>
-                    <p className="text-gray-700 text-base">{props.email}</p>
+                    <div className="font-bold text-xl">{name}</div>
+                    <p className="text-gray-700 text-base">{email}</p>
                 </div>
                 <div className="px-4 py-1">
                     <span className="block whitespace-pre-wrap bg-gray-200 rounded-xl px-3 py-1 text-sm font-semibold
-                        text-gray-700 mr-2 mb-2">{props.todo}
+                        text-gray-700 mr-2 mb-2">{todo}
                     </span>
                 </div>
 
                 <div className="float-right space-x-2 mb-2 mr-2">
                     <i className="fa fa-edit text-blue-500 cursor-pointer" onClick={() => setOpenModal(true)}/>
-                    <i className="fa fa-trash text-red-500 cursor-pointer" onClick={props.click}/>
+                    <i className="fa fa-trash text-red-500 cursor-pointer" onClick={click}/>
                 </div>
             </div>
 
@@ -50,9 +48,8 @@ const ShowTodo = (props) => {
                         <div
                             className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
 
-                            <TodoFormFields title='Edit Todo' name={commonState.name} email={commonState.email} todo={commonState.todo}
-                                            nameChange={commonState.nameChangeHandler} emailChange={commonState.emailChangeHandler} todoChange={commonState.todoChangeHandler}
-                                            trigger={onTrigger} clearForm={clearFormValues} isCancelPresent={true}/>
+                            <TodoFormFields title='Edit Todo' name={todoState.name} email={todoState.email} todo={todoState.todo}
+                                            change={changeHandler} trigger={onTrigger} clearForm={clearFormValues} isCancelPresent={true}/>
 
                         </div>
                     </div>
