@@ -4,10 +4,10 @@ import CommonState from "./CommonState";
 
 const ShowTodo = ({index, name, email, todo, click, update}) => {
     const [openModal, setOpenModal] = useState(false);
-    const {todoState, setTodoState, changeHandler} = CommonState({name, email, todo})
+    const {todoState, setTodoState, changeHandler} = CommonState({name, email, todo});
 
     const onTrigger = (event) => {
-        update({name: todoState.name, email: todoState.email, todo: todoState.todo}, index);
+        update(todoState, index);
         setOpenModal(false);
         event.preventDefault();
     }

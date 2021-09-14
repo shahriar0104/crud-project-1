@@ -5,17 +5,11 @@ import ShowTodo from "../components/ShowTodo";
 const Todo = () => {
     const [todos, setTodos] = useState([]);
 
-    const addTodoHandler = (event) => {
-        setTodos([...todos, {
-            name: event.target.name.value,
-            email: event.target.email.value,
-            todo: event.target.todo.value
-        }]);
-    }
+    const addTodoHandler = (todoState) => setTodos([...todos, todoState]);
 
-    const updateTodoHandler = (target, todoIndex) => {
+    const updateTodoHandler = (todoState, todoIndex) => {
         const todoList = [...todos];
-        todoList[todoIndex] = {name: target.name, email: target.email, todo: target.todo};
+        todoList[todoIndex] = todoState;
         setTodos(todoList);
     }
 

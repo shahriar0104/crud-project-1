@@ -7,7 +7,7 @@ const CreateTodo = ({addTodo}) => {
     const {todoState, setTodoState, changeHandler} = CommonState(emptyTodoState);
 
     const onTrigger = (event) => {
-        addTodo(event);
+        addTodo(todoState);
         event.preventDefault();
         setTodoState(emptyTodoState);
     }
