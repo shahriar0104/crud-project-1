@@ -7,29 +7,14 @@ import {actionType} from "../utils/actionType";
 const Todo = () => {
     const [state, dispatch] = useContext(TodoListContext);
 
-    const addTodoHandler = (event) => {
-        dispatch({
-            type: actionType.ADD_TODO, payload: {
-                name: event.target.name.value,
-                email: event.target.email.value,
-                todo: event.target.todo.value
-            }
-        })
-    }
+    const addTodoHandler = (todoState) =>
+        dispatch({type: actionType.ADD_TODO, payload: todoState});
 
-    const updateTodoHandler = (event, todoIndex) => {
-        dispatch({
-            type: actionType.UPDATE_TODO, index: todoIndex, payload: {
-                name: event.target.name.value,
-                email: event.target.email.value,
-                todo: event.target.todo.value
-            }
-        })
-    }
+    const updateTodoHandler = (todoState, todoIndex) =>
+        dispatch({type: actionType.UPDATE_TODO, index: todoIndex, payload: todoState});
 
-    const deleteTodoHandler = (todoIndex) => {
-        dispatch({type: actionType.REMOVE_TODO, payload: todoIndex})
-    }
+    const deleteTodoHandler = (todoIndex) =>
+        dispatch({type: actionType.REMOVE_TODO, payload: todoIndex});
 
     return (
         <div className="App min-h-screen bg-gray-200 p-4 sm:p-8">
