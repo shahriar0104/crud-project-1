@@ -6,13 +6,7 @@ import {TodoListContext} from "../context/GlobalContext";
 const Todo = () => {
     const [todoList, setTodoList] = useContext(TodoListContext);
 
-    const addTodoHandler = (event) => {
-        setTodoList(todoList.concat({
-            name: event.target.name.value,
-            email: event.target.email.value,
-            todo: event.target.todo.value
-        }))
-    }
+    const addTodoHandler = (todoState) => setTodoList(todoList.concat(todoState));
 
     const updateTodoHandler = (todoState, todoIndex) => {
         const todos = [...todoList];
