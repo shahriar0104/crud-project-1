@@ -1,10 +1,14 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import TodoFormFields from "./TodoFormFields";
 import CommonState from "./CommonState";
 
 const ShowTodo = ({index, name, email, todo, click, update}) => {
     const [openModal, setOpenModal] = useState(false);
     const {todoState, setTodoState, changeHandler} = CommonState({name, email, todo});
+
+    useEffect(() => {
+        setTodoState({name, email, todo})
+    }, [setTodoState, name, email, todo]);
 
     const onTrigger = (event) => {
         update(todoState, index);
@@ -37,23 +41,26 @@ const ShowTodo = ({index, name, email, todo, click, update}) => {
             </div>
 
             {
-                openModal ? (<div className="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog"
-                             aria-modal="true">
-                    <div
-                        className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                openModal ? (
+                    <div className="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog"
+                         aria-modal="true">
+                        <div
+                            className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
 
                     <span className="hidden sm:inline-block sm:align-middle sm:h-screen"
                           aria-hidden="true">&#8203;</span>
 
-                        <div
-                            className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                            <div
+                                className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
 
-                            <TodoFormFields title='Edit Todo' name={todoState.name} email={todoState.email} todo={todoState.todo}
-                                            change={changeHandler} trigger={onTrigger} clearForm={clearFormValues} isCancelPresent={true}/>
+                                <TodoFormFields title='Edit Todo' name={todoState.name} email={todoState.email}
+                                                todo={todoState.todo}
+                                                change={changeHandler} trigger={onTrigger} clearForm={clearFormValues}
+                                                isCancelPresent={true}/>
 
+                            </div>
                         </div>
-                    </div>
-                </div>) : null
+                    </div>) : null
             }
         </div>
     )
