@@ -1,10 +1,17 @@
-import React, {useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import TodoFormFields from "./TodoFormFields";
 import CommonState from "./CommonState";
+import {TodoListContext} from "../context/GlobalContext";
 
 const ShowTodo = ({index, name, email, todo, update, click}) => {
+    const [todoList] = useContext(TodoListContext);
     const [openModal, setOpenModal] = useState(false);
     const {todoState, setTodoState, changeHandler} = CommonState({name, email, todo});
+
+    useEffect(() => {
+        setTodoState({name, email, todo});
+    }, [todoList, setTodoState, name, email, todo]);
+
 
     const onTrigger = (event) => {
         update(todoState, index);
