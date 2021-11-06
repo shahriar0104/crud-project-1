@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import TodoFormFields from "./TodoFormFields";
 import CommonState from "./CommonState";
 
-const ShowTodo = ({index, name, email, todo, click, update}) => {
+const ShowTodo = ({id, name, email, todo, click, update}) => {
     const [openModal, setOpenModal] = useState(false);
     const {todoState, setTodoState, changeHandler} = CommonState({name, email, todo});
 
@@ -11,7 +11,7 @@ const ShowTodo = ({index, name, email, todo, click, update}) => {
     }, [setTodoState, name, email, todo]);
 
     const onTrigger = (event) => {
-        update(todoState, index);
+        update({name: todoState.name, email: todoState.email, todo: todoState.todo}, id);
         setOpenModal(false);
         event.preventDefault();
     }
